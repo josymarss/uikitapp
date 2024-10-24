@@ -26,6 +26,43 @@ class PeopleViewController: UIViewController {
         return button
     }()
     
+    
+    private lazy var personContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Josemar Silva"
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private lazy var emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "josymarss@mail.com"
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private lazy var personStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,12 +80,25 @@ private extension PeopleViewController {
         self.view.backgroundColor = .white
         
         // MARK: Add into a view
-        self.view.addSubview(subscribeButton)
+        self.view.addSubview(personContainerView)
+        personContainerView.addSubview(personStackView)
+        
+        // MARK: Add to Stack
+        personStackView.addArrangedSubview(nameLabel)
+        personStackView.addArrangedSubview(emailLabel)
+        personStackView.addArrangedSubview(subscribeButton)
         
         // MARK: Position in the screen
         NSLayoutConstraint.activate([
-            subscribeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            subscribeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            personContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            personContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            personContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            
+            personStackView.topAnchor.constraint(equalTo: personContainerView.topAnchor, constant: 8),
+            personStackView.leadingAnchor.constraint(equalTo: personContainerView.leadingAnchor, constant: 8),
+            personStackView.trailingAnchor.constraint(equalTo: personContainerView.trailingAnchor, constant: -8),
+            personStackView.bottomAnchor.constraint(equalTo: personContainerView.bottomAnchor, constant: -8)
+
         ])
     }
     
