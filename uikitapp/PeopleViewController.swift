@@ -39,6 +39,9 @@ class PeopleViewController: UIViewController{
 private extension PeopleViewController {
     
     func setUp(){
+        
+        self.navigationItem.title = "People"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
         self.view.addSubview(collectionView)
         
@@ -64,6 +67,18 @@ extension PeopleViewController:PeopleViewModelDelegate {
     }
 }
 
+extension PeopleViewController: PeopleViewCellDelegate {
+    func didSubscribe() {
+        let url = URL(string: "https://www.youtube.com/@pointer-bz9mx")!
+        //let viewController = SFSafariViewControler(url:url)
+        //viewController.modalPresentationStyle = .formSheet
+        
+        //self.present(viewController, animated: true)
+    }
+    
+    
+}
+
 extension PeopleViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,6 +91,7 @@ extension PeopleViewController: UICollectionViewDataSource{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PersonCollectionViewCell", for: indexPath) as! PersonCollectionViewCell
         
+        cell.delegate = self
         cell.item = item
         
         return cell

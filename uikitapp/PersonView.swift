@@ -9,8 +9,11 @@ import UIKit
 
 class PersonView: UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private var action: () -> ()
+    
+    init(action: @escaping () -> ()) {
+        self.action = action
+        super.init(frame: .zero)
         setUp()
     }
     

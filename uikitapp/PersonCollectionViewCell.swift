@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol PeopleViewCellDelegate : AnyObject {
+    func didSubscribe()
+}
+
 class PersonCollectionViewCell: UICollectionViewCell {
     
     private var personView: PersonView?
+    weak var delegate: PeopleViewCellDelegate?
     
     var item: PersonResponse? {
         didSet{
@@ -33,7 +38,9 @@ extension PersonCollectionViewCell {
     func setUp(){
         guard personView == nil else { return }
         
-        personView = PersonView ()
+        personView = PersonView{ [weak self] in
+            self?.delegate?.didSubscribe()
+        }
         
         self.contentView.addSubview(personView!)
         
